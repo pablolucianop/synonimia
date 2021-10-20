@@ -7,42 +7,7 @@ import Button from 'react-bootstrap/Button'
 import ListGroup from 'react-bootstrap/ListGroup'
 import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.min.css'
-
-
-
-class Prue extends React.Component {
-  render() {
-    // console.log('this.props.este.term', this.props.este.term)
-    return (
-      <Card style={{ width: '18rem' }}>
-        <Card.Body>
-          <Card.Title>{this.props.este}</Card.Title>
-          <Button variant="primary">🡅</Button>{' '}
-          <Button variant="secondary">🡇</Button>
-          {/* <p>{this.props.este.term}</p> */}
-        </Card.Body>
-      </Card>
-    )
-  }
-}
-
-class TodosS extends React.Component {
-  render() {
-    console.log('this.props.todos', this.props.todos)
-    let navLinks = <Prue este={'pers'} />
-    if (this.props.todos !== undefined) {
-
-let unicos = [...new Set(this.props.todos.map((este) => este.sin))]
-console.log('unicos', unicos)
-
-       navLinks = unicos.map((pers) => {
-         return <Prue este={pers} />
-       })
-    }
-
-    return navLinks
-  }
-}
+import { TodosS } from './TodosS'
 
 class App extends React.Component {
   constructor(props) {
@@ -136,16 +101,14 @@ class App extends React.Component {
     })
 
     let simpsObs = { todos: simples }
-    this.setState({ allSyns: simpsObs })
+    this.setState({ allSyns: simpsObs , mainWord: mainWord})
   }
 
   render() {
     const { allSyns } = this.state
     return (
       <div>
-        <h1>Hola</h1>
-        {console.log(232, this.state.allSyns.todos)}
-
+        <h1>{ this.state.mainWord }</h1>
         <TodosS todos={this.state.allSyns.todos} />
       </div>
     )
