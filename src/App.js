@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button'
 import ListGroup from 'react-bootstrap/ListGroup'
 import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { TodosS } from './TodosS'
+import { Yard } from './Yard'
 
 class App extends React.Component {
   constructor(props) {
@@ -101,15 +101,15 @@ class App extends React.Component {
     })
 
     let simpsObs = { todos: simples }
-    this.setState({ allSyns: simpsObs , mainWord: mainWord})
+    this.setState({ allSyns: simpsObs, mainWord: mainWord })
   }
 
   render() {
     const { allSyns } = this.state
     return (
       <div>
-        <h1>{ this.state.mainWord }</h1>
-        <TodosS todos={this.state.allSyns.todos} />
+        <h1>{this.state.mainWord}</h1>
+        <Yard todos={this.state.allSyns.todos} />
       </div>
     )
   }

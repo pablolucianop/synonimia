@@ -1,5 +1,5 @@
 import React from 'react'
-export class TodosS extends React.Component {
+export class Yard extends React.Component {
   render() {
     console.log('this.props.todos', this.props.todos)
     let navLinks = <Prue este={'pers'} />
@@ -23,7 +23,7 @@ class Prue extends React.Component {
       <div class="p-2">
         <button type="button" class="btn btn-light">
           {this.props.este}
-                <span class="badge text-muted">🡇</span>
+          <span class="badge text-muted">🡇</span>
         </button>
       </div>
     )
