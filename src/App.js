@@ -11,69 +11,72 @@ import { Yard } from './Yard'
 import { data } from './data'
 
 class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      allSyns: '',
+    }
+  }
+
   componentDidMount() {
-    let word = 'red'
-    axios
-      .get(
-        `https://www.abbreviations.com/services/v2/syno.php?uid=9413&tokenid=vIMVCwch6JUkn04H&word=${word}&format=json`
-      )
-      .then((response) => {
-        console.log(response)
-       let synsMapp2 = response.data.result.map(
-          (x) => (x = { term: x.term.split(','), syn: x.synonyms.split(',') })
-        )
-        let simples = []
-        synsMapp2.forEach((element) => {
-          element.syn.forEach((element0) => {
-            simples.push({
-              sin: element0,
-              term: element.term,
-              main: word,
-            })
-          })
+    // axios
+    //   .get(
+    //     'https://www.abbreviations.com/services/v2/syno.php?uid=9413&tokenid=vIMVCwch6JUkn04H&word=consistent&format=json'
+    //   )
+    //   .then((response) => {
+    //     let syns = response.data.result.map((x) => (x = x.term))
+    //   console.log(response.data.result)
+    //     console.log(syns)
+    //     this.setState({ allSyns: syns })
+    //   })
+    //   .catch((error) => {
+    //     console.log(error)
+    //   })
+    let mainWord = 'consistent'
+    let responsen = data
+
+    let syns = responsen[0].synonyms.split(',')
+    // let synsMapp = responsen.map((x) => [x.synonyms])
+    let synsMapp = responsen.map(
+      (x) => (x = { term: x.term.split(','), syn: x.synonyms.split(',') })
+    )
+
+    console.log('synsMapp', synsMapp)
+    let simples = []
+    synsMapp.forEach((element) => {
+      element.syn.forEach((element0) => {
+        simples.push({
+          sin: element0,
+          term: element.term.filter(
+            (word) => word === word // !== mainWord
+          ),
+          main: mainWord,
         })
-
-        console.log('simples', simples)
-        let cleaned = []
-        simples.forEach(element => {
-          //order alphabet
-          // console.log('...',)
-          // console.log('element.sin', element.sin)
-          // console.log('element.sin[0]', element.sin[0])
-          if (element.sin[0] === ' ' && element.sin !== undefined && element !== undefined){
-            element.sin = element.sin.substring(1)
-          }
-        cleaned.push(element)
-        });
-
-        function compare(a, b) {
-          if (a.sin < b.sin)
-            return -1;
-          if (a.sin > b.sin)
-            return 1;
-          return 0;
-        }
-        let cleanedSorted = cleaned.sort(compare)
-        console.log(cleanedSorted)
-        let cleanedSortedJistSyn = [...new Set(cleanedSorted.map(syn => syn.sin))];
-          
-        console.log(cleanedSortedJistSyn)
-
-        let justTerms = [...new Set(cleanedSorted.map(syn => syn.term))];
-        console.log(cleanedSortedJistSyn)
       })
-      .catch((error) => {
-        console.log(error)
-      })
+    })
 
-
-
+    let simpsObs = { todos: simples }
+    this.setState({ allSyns: simpsObs, mainWord: mainWord })
   }
 
   render() {
+    const { allSyns } = this.state
     return (
       <div>
-        <h1>app solo para data</h1>
+        <h1>{this.state.mainWord}</h1>
+        <div className="p-2">
+          <h3> Closer</h3>
+          <button type="button" className="btn btn-light">
+            <span className="badge text-muted">🡇</span>
+          </button>
+        </div>
+        <div className="p-2">
+          <h3> Far from This</h3>
+          <button type="button" className="btn btn-light">
+            <span className="badge text-muted">🡇</span>
+          </button>
+        </div>
+        <Yard todos={this.state.allSyns.todos} />
       </div>
     )
   }

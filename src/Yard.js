@@ -8,11 +8,11 @@ export class Yard extends React.Component {
       console.log('unicos', unicos)
 
       navLinks = unicos.map((pers) => {
-        return <Prue este={pers} />
+        return <Prue este={pers} key={pers.toString()} />
       })
     }
 
-    return <div class="d-flex flex-row flex-wrap">{navLinks} </div>
+    return <div className="d-flex flex-row flex-wrap">{navLinks} </div>
   }
 }
 
@@ -20,10 +20,10 @@ class Prue extends React.Component {
   render() {
     // console.log('this.props.este.term', this.props.este.term)
     return (
-      <div class="p-2">
-        <button type="button" class="btn btn-light">
+      <div className="p-2">
+        <button type="button" className="btn btn-light">
           {this.props.este}
-          <span class="badge text-muted">🡇</span>
+          <span className="badge text-muted">🡇</span>
         </button>
       </div>
     )
