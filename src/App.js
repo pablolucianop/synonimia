@@ -12,13 +12,13 @@ import { data } from './data'
 
 class App extends React.Component {
   componentDidMount() {
-    let word = 'blush'
+    let word = 'red'
     axios
       .get(
         `https://www.abbreviations.com/services/v2/syno.php?uid=9413&tokenid=vIMVCwch6JUkn04H&word=${word}&format=json`
       )
       .then((response) => {
-        let syns = response.data.result.map((x) => (x = x.term))
+        console.log(response)
        let synsMapp2 = response.data.result.map(
           (x) => (x = { term: x.term.split(','), syn: x.synonyms.split(',') })
         )
@@ -55,7 +55,12 @@ class App extends React.Component {
         }
         let cleanedSorted = cleaned.sort(compare)
         console.log(cleanedSorted)
+        let cleanedSortedJistSyn = [...new Set(cleanedSorted.map(syn => syn.sin))];
+          
+        console.log(cleanedSortedJistSyn)
 
+        let justTerms = [...new Set(cleanedSorted.map(syn => syn.term))];
+        console.log(cleanedSortedJistSyn)
       })
       .catch((error) => {
         console.log(error)
