@@ -4,6 +4,9 @@ import React from 'react'
 import Badge from 'react-bootstrap/Badge'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
+
+import InputGroup from 'react-bootstrap/InputGroup'
+import FormControl from 'react-bootstrap/FormControl'
 import ListGroup from 'react-bootstrap/ListGroup'
 import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -16,6 +19,17 @@ class App extends React.Component {
     this.state = {
       allSyns: '',
     }
+    this.setMainWord = this.setMainWord.bind(this)
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  handleChange(event) {
+    this.setState({ value: event.target.value });
+  }
+
+  handleSubmit(event) {
+    alert('A name was submitted: ' + this.state.value);
+    event.preventDefault();
   }
 
   componentDidMount() {
@@ -57,11 +71,25 @@ class App extends React.Component {
     this.setState({ allSyns: simpsObs, mainWord: mainWord })
   }
 
+  setMainWord(event) {
+    console.log('vevent.target', event.target)
+
+    this.setState({ mainWord: event.target.value })
+  }
+
   render() {
-    const { allSyns } = this.state
     return (
       <div>
-        <h1>{this.state.mainWord}</h1>
+        <h1>SINONIMS</h1>
+        <form onSubmit={this.handleSubmit}>
+          <label>
+            Name:
+          <input type="text" value={this.state.value} onChange={this.handleChange} />
+          </label>
+          <input type="submit" value="Submit" />
+        </form>
+
+        <h2>y la palabra ess{this.state.value}</h2>
         <div className="p-2">
           <h3> Closer</h3>
           <button type="button" className="btn btn-light">
@@ -70,7 +98,11 @@ class App extends React.Component {
         </div>
         <div className="p-2">
           <h3> Far from This</h3>
-          <button type="button" className="btn btn-light">
+          <button
+            type="button"
+            className="btn btn-light"
+            onClick={this.setMainWord}
+          >
             <span className="badge text-muted">🡇</span>
           </button>
         </div>
