@@ -42,6 +42,15 @@ class App extends React.Component {
       )
       .then((response) => {
         console.log('response.data.result', response.data)
+        //si no lo reconoce como una palabra en ingles
+
+        if (response.data.result === undefined) {
+          console.log('exito')
+          console.log(response.data.related)
+        }
+        // if (response.data.result[0].definition === undefined){
+        //   alert(response.data.result.related)
+        // }
         let syns = response.data.result.map((x) => (x = x.term))
 
         this.setState({ allSyns: syns })
