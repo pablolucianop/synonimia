@@ -34,8 +34,6 @@ class App extends React.Component {
     //   })
     let mainWord = 'consistent'
     let responsen = data
-
-    let syns = responsen[0].synonyms.split(',')
     // let synsMapp = responsen.map((x) => [x.synonyms])
     let synsMapp = responsen.map(
       (x) => (x = { term: x.term.split(','), syn: x.synonyms.split(',') })
