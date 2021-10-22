@@ -41,9 +41,9 @@ class App extends React.Component {
         `https://www.abbreviations.com/services/v2/syno.php?uid=9413&tokenid=vIMVCwch6JUkn04H&word=${word}&format=json`
       )
       .then((response) => {
+        console.log('response.data.result', response.data)
         let syns = response.data.result.map((x) => (x = x.term))
-        console.log('response.data.result', response.data.result)
-      
+
         this.setState({ allSyns: syns })
       })
       .catch((error) => {
@@ -89,7 +89,7 @@ class App extends React.Component {
     })
 
     let simpsObs = { todos: simples }
-    this.setState({ allSyns: simpsObs, mainWord: 'rrr' })
+    this.setState({ allSyns: simpsObs, mainWord: '' })
   }
 
   setMainWord(event) {
@@ -125,7 +125,9 @@ class App extends React.Component {
           </Container>
         </Navbar>
 
-        <h2>y la palabra es {this.state.mainWord}</h2>
+        <h2>
+          <Badge bg="secondary">{this.state.mainWord}</Badge>
+        </h2>
         <div className="p-2">
           <h3> Closer</h3>
           <button type="button" className="btn btn-light">
