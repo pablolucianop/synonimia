@@ -29,6 +29,7 @@ class App extends React.Component {
 
   handleSubmit(event) {
     alert('A name was submitted: ' + this.state.value);
+    this.setState({ mainWord: this.state.value });
     event.preventDefault();
   }
 
@@ -68,7 +69,7 @@ class App extends React.Component {
     })
 
     let simpsObs = { todos: simples }
-    this.setState({ allSyns: simpsObs, mainWord: mainWord })
+    this.setState({ allSyns: simpsObs, mainWord: 'rrr' })
   }
 
   setMainWord(event) {
@@ -89,7 +90,7 @@ class App extends React.Component {
           <input type="submit" value="Submit" />
         </form>
 
-        <h2>y la palabra ess{this.state.value}</h2>
+        <h2>y la palabra es {this.state.mainWord}</h2>
         <div className="p-2">
           <h3> Closer</h3>
           <button type="button" className="btn btn-light">
