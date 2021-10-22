@@ -4,11 +4,15 @@ import React from 'react'
 import Badge from 'react-bootstrap/Badge'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
-
 import InputGroup from 'react-bootstrap/InputGroup'
 import FormControl from 'react-bootstrap/FormControl'
+import Form from 'react-bootstrap/Form'
 import ListGroup from 'react-bootstrap/ListGroup'
 import axios from 'axios'
+import Navbar from 'react-bootstrap/Navbar'
+import Nav from 'react-bootstrap/Nav'
+import NavDropdown from 'react-bootstrap/NavDropdown'
+import Container from 'react-bootstrap/Container'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Yard } from './Yard'
 import { data } from './data'
@@ -28,7 +32,7 @@ class App extends React.Component {
   }
 
   handleSubmit(event) {
-    alert('A name was submitted: ' + this.state.value);
+    // alert('A name was submitted: ' + this.state.value);
     this.setState({ mainWord: this.state.value });
     event.preventDefault();
   }
@@ -82,6 +86,45 @@ class App extends React.Component {
     return (
       <div>
         <h1>SINONIMS</h1>
+
+        <Navbar bg="light" expand="lg">
+          <Container fluid>
+            <Navbar.Brand href="#">Navbar scroll</Navbar.Brand>
+            <Navbar.Toggle aria-controls="navbarScroll" />
+            <Navbar.Collapse id="navbarScroll">
+              <Nav
+                className="me-auto my-2 my-lg-0"
+                style={{ maxHeight: '100px' }}
+                navbarScroll
+              >
+                <Nav.Link href="#action1">Home</Nav.Link>
+                <Nav.Link href="#action2">Link</Nav.Link>
+                <NavDropdown title="Link" id="navbarScrollingDropdown">
+                  <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
+                  <NavDropdown.Item href="#action4">Another action</NavDropdown.Item>
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item href="#action5">
+                    Something else here
+          </NavDropdown.Item>
+                </NavDropdown>
+                <Nav.Link href="#" disabled>
+                  Link
+        </Nav.Link>
+              </Nav>
+              <Form className="d-flex">
+                <FormControl
+                  type="search"
+                  placeholder="Search"
+                  className="me-2"
+                  aria-label="Search"
+                />
+                <Button variant="outline-success">Search</Button>
+              </Form>
+            </Navbar.Collapse>
+          </Container>
+        </Navbar>
+
+
         <form onSubmit={this.handleSubmit}>
           <label>
             Name:
