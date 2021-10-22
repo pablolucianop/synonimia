@@ -23,7 +23,7 @@ class App extends React.Component {
     this.state = {
       allSyns: '',
       value: '',
-      related:''
+      related: '',
     }
     this.setMainWord = this.setMainWord.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -48,7 +48,14 @@ class App extends React.Component {
         if (response.data.result === undefined) {
           console.log('exito')
           console.log(response.data.related)
-          this.setState({ related: response.data.related[0].term })
+          let related = response.data.related.map((x) => (
+            <button type="button" className="btn btn-light">
+              {x.term}
+            </button>
+          ))
+          let didYouMean = <div>did you mean{related} </div>
+          this.setState({ related: didYouMean })
+          // this.setState({ related: response.data.related[0].term })
           return
         }
         // if (response.data.result[0].definition === undefined){
@@ -139,7 +146,8 @@ class App extends React.Component {
         {/* <h2>
           <Badge bg="secondary">{this.state.related.join(',')}</Badge>
         </h2> */}
-        <Badge bg="secondary">{this.state.related}</Badge>
+        <h3 bg="secondary">{this.state.related}</h3>
+
         <h2>
           <Badge bg="secondary">{this.state.mainWord}</Badge>
         </h2>
