@@ -23,6 +23,7 @@ class App extends React.Component {
     this.state = {
       allSyns: '',
       value: '',
+      related:''
     }
     this.setMainWord = this.setMainWord.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -47,6 +48,8 @@ class App extends React.Component {
         if (response.data.result === undefined) {
           console.log('exito')
           console.log(response.data.related)
+          this.setState({ related: response.data.related[0].term })
+          return
         }
         // if (response.data.result[0].definition === undefined){
         //   alert(response.data.result.related)
@@ -133,7 +136,10 @@ class App extends React.Component {
             </Navbar.Collapse>
           </Container>
         </Navbar>
-
+        {/* <h2>
+          <Badge bg="secondary">{this.state.related.join(',')}</Badge>
+        </h2> */}
+        <Badge bg="secondary">{this.state.related}</Badge>
         <h2>
           <Badge bg="secondary">{this.state.mainWord}</Badge>
         </h2>
