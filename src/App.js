@@ -19,22 +19,18 @@ import { data } from './data'
 
 class Related extends React.Component {
   render() {
-
-              let related33 =this.props.related.map((x) => (
-
-                      <button type="button" className="btn btn-light">
-              {x}
-            </button>
-
-          ))
+    let related33 =this.props.related.map((x) => (
+      <button type="button" className="btn btn-light">
+        {x}
+      </button>
+  ))
     return (
-            <div>
-                      did you mean:
-      <div className="p-2">
-
-               {related33}
+      <div>
+        did you mean:
+          <div className="p-2">
+            {related33}
+          </div>
       </div>
-            </div>
     )
   }
 }
@@ -103,6 +99,8 @@ class App extends React.Component {
     let mainWord = 'consistent'
     let responsen = response.data.result
 
+
+
     // let synsMapp = responsen.map((x) => [x.synonyms])
     let synsMapp = responsen.map(
       (x) => (x = { term: x.term.split(','), syn: x.synonyms.split(',') })
@@ -133,34 +131,6 @@ class App extends React.Component {
     event.preventDefault()
   }
 
-  // componentDidMount() {  
-  //   console.log('this.state', this.state)
-  //   let mainWord = 'consistent'
-  //   let responsen = data
-
-  //   // let synsMapp = responsen.map((x) => [x.synonyms])
-  //   let synsMapp = responsen.map(
-  //     (x) => (x = { term: x.term.split(','), syn: x.synonyms.split(',') })
-  //   )
-
-  //   console.log('synsMapp', synsMapp)
-      
-  //   let simples = []
-  //   synsMapp.forEach((element) => {
-  //     element.syn.forEach((element0) => {
-  //       simples.push({
-  //         sin: element0,
-  //         term: element.term.filter(
-  //           (word) => word === word // !== mainWord
-  //         ),
-  //         main: mainWord,
-  //       })
-  //     })
-  //   })
-
-  //   let simpsObs = { todos: simples }
-  //   this.setState({ allSyns: simpsObs, mainWord: '' })
-  // }
 
   setMainWord(event) {
     console.log('vevent.target', event.target)
