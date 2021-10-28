@@ -59,6 +59,7 @@ class App extends React.Component {
   }
     handlePick() {
     this.setState({ picked:[' event.target.value', 'eeee'] })
+
   }
 
   handleSubmitSearch(event) {
