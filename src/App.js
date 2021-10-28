@@ -15,6 +15,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown'
 import Container from 'react-bootstrap/Container'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Yard } from './Yard'
+import { Closer } from './Closer'
 import { data } from './data'
 
 class Related extends React.Component {
@@ -44,7 +45,9 @@ class App extends React.Component {
       value: '',
       related: '',
       related2: [],
-      mainWord: ''
+      mainWord: '',
+         picked: ['a', 'b', 'c'],
+
     }
     this.setMainWord = this.setMainWord.bind(this)
     this.handleChangeInput = this.handleChangeInput.bind(this)
@@ -126,6 +129,7 @@ class App extends React.Component {
       })
       .catch((error) => {
         console.log(error)
+        alert('error', error)
       })
 
     event.preventDefault()
@@ -172,8 +176,7 @@ class App extends React.Component {
         <h2>
           <Badge bg="secondary">{this.state.mainWord}</Badge>
         </h2>
-        <Yard todos={this.state.allSyns.todos} />
-
+        <Closer todos={this.state.picked} />
         <Yard todos={this.state.allSyns.todos} />
 
          
