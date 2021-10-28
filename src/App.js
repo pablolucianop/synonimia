@@ -15,7 +15,6 @@ import NavDropdown from 'react-bootstrap/NavDropdown'
 import Container from 'react-bootstrap/Container'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Yard } from './Yard'
-import { Related } from './Related'
 import { data } from './data'
 
 class App extends React.Component {
@@ -50,13 +49,15 @@ class App extends React.Component {
 
         //if the word isnt an english word
         if (response.data.result === undefined) {
+          console.log('exito')
+          console.log(response.data.related)
           let related = response.data.related.map((x) => (
             <button type="button" className="btn btn-light">
               {x.term}
             </button>
           ))
           let didYouMean = <div>did you mean{related} </div>
-          this.setState({ related: response.data.related })
+          this.setState({ related: didYouMean })
 
           // this.setState({ related: response.data.related[0].term })
           return
@@ -128,6 +129,7 @@ class App extends React.Component {
     return (
       <div>
         <h1>SINONIMS</h1>
+
         <Navbar bg="light" expand="lg">
           <Container fluid>
             <Navbar.Brand href="#">search synonims</Navbar.Brand>
@@ -153,6 +155,7 @@ class App extends React.Component {
           <Badge bg="secondary">{this.state.related.join(',')}</Badge>
         </h2> */}
         <h3 bg="secondary">{this.state.related}</h3>
+
         <h2>
           <Badge bg="secondary">{this.state.mainWord}</Badge>
         </h2>
