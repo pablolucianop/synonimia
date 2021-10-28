@@ -21,19 +21,20 @@ class Related extends React.Component {
   render() {
 
               let related33 =this.props.related.map((x) => (
-            <button type="button" className="btn btn-light">
+
+                      <button type="button" className="btn btn-light">
               {x}
             </button>
+
           ))
     return (
+            <div>
+                      did you mean:
       <div className="p-2">
+
                {related33}
-        <button type="button" className="btn btn-light">
-          {/* {this.props.related.join(', ')} */}
-   
-          <span className="badge text-muted">🡇</span>
-        </button>
       </div>
+            </div>
     )
   }
 }
@@ -89,38 +90,18 @@ class App extends React.Component {
           // this.setState({ related: response.data.related[0].term })
           return
         }
-        // if (response.data.result[0].definition === undefined){
+
+        console.log('data',data)
+        console.log('response.data.result', response.data.result)
+             // if (response.data.result[0].definition === undefined){
         //   alert(response.data.result.related)
         // }
-        let syns = response.data.result.map((x) => (x = x.term))
+        // let syns = response.data.result.map((x) => (x = x.term))
 
-        this.setState({ allSyns: syns })
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-
-    event.preventDefault()
-  }
-
-  componentDidMount() {
-    // axios
-    //   .get(
-    //     'https://www.abbreviations.com/services/v2/syno.php?uid=9413&tokenid=vIMVCwch6JUkn04H&word=consistent&format=json'
-    //   )
-    //   .then((response) => {
-    //     let syns = response.data.result.map((x) => (x = x.term))
-    //   console.log(response.data.result)
-    //     console.log(syns)
-    //     this.setState({ allSyns: syns })
-    //   })
-    //   .catch((error) => {
-    //     console.log(error)
-    //   })
-
+        // this.setState({ allSyns: syns })
     console.log('this.state', this.state)
     let mainWord = 'consistent'
-    let responsen = data
+    let responsen = response.data.result
 
     // let synsMapp = responsen.map((x) => [x.synonyms])
     let synsMapp = responsen.map(
@@ -144,7 +125,42 @@ class App extends React.Component {
 
     let simpsObs = { todos: simples }
     this.setState({ allSyns: simpsObs, mainWord: '' })
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+
+    event.preventDefault()
   }
+
+  // componentDidMount() {  
+  //   console.log('this.state', this.state)
+  //   let mainWord = 'consistent'
+  //   let responsen = data
+
+  //   // let synsMapp = responsen.map((x) => [x.synonyms])
+  //   let synsMapp = responsen.map(
+  //     (x) => (x = { term: x.term.split(','), syn: x.synonyms.split(',') })
+  //   )
+
+  //   console.log('synsMapp', synsMapp)
+      
+  //   let simples = []
+  //   synsMapp.forEach((element) => {
+  //     element.syn.forEach((element0) => {
+  //       simples.push({
+  //         sin: element0,
+  //         term: element.term.filter(
+  //           (word) => word === word // !== mainWord
+  //         ),
+  //         main: mainWord,
+  //       })
+  //     })
+  //   })
+
+  //   let simpsObs = { todos: simples }
+  //   this.setState({ allSyns: simpsObs, mainWord: '' })
+  // }
 
   setMainWord(event) {
     console.log('vevent.target', event.target)
@@ -178,16 +194,16 @@ class App extends React.Component {
             </Navbar.Collapse>
           </Container>
         </Navbar>
-        {/* <h2>
-          <Badge bg="secondary">{this.state.related.join(',')}</Badge>
-        </h2> */}
-        <h3 bg="secondary">{this.state.related}</h3>
+
+        <h3 bg="secondary">       
+         {this.state.related2.length>0 ? <Related related={this.state.related2} /> : null}
+         </h3>
 
         <h2>
           <Badge bg="secondary">{this.state.mainWord}</Badge>
         </h2>
         <div className="p-2">
-          <h3> Closer</h3>
+                  <h3> Closer</h3>
           <button type="button" className="btn btn-light">
             <span className="badge text-muted">🡇</span>
           </button>
@@ -203,7 +219,8 @@ class App extends React.Component {
           </button>
         </div>
         <Yard todos={this.state.allSyns.todos} />
-         <Related related={this.state.related2} />
+
+         
       </div>
     )
   }

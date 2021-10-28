@@ -21,7 +21,7 @@ class Prue extends React.Component {
     return (
       <div className="p-2">
         <button type="button" className="btn btn-light">
-          {this.props.synCard}
+             {this.props.synCard}
           <span className="badge text-muted">🡇</span>
         </button>
       </div>
