@@ -122,7 +122,7 @@ class App extends React.Component {
     })
 
     let simpsObs = { todos: simples }
-    this.setState({ allSyns: simpsObs, mainWord: '' })
+    this.setState({ allSyns: simpsObs })
       })
       .catch((error) => {
         console.log(error)
@@ -172,22 +172,8 @@ class App extends React.Component {
         <h2>
           <Badge bg="secondary">{this.state.mainWord}</Badge>
         </h2>
-        <div className="p-2">
-                  <h3> Closer</h3>
-          <button type="button" className="btn btn-light">
-            <span className="badge text-muted">🡇</span>
-          </button>
-        </div>
-        <div className="p-2">
-          <h3> Far from This</h3>
-          <button
-            type="button"
-            className="btn btn-light"
-            onClick={this.setMainWord}
-          >
-            <span className="badge text-muted">🡇</span>
-          </button>
-        </div>
+        <Yard todos={this.state.allSyns.todos} />
+
         <Yard todos={this.state.allSyns.todos} />
 
          
