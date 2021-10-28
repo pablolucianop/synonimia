@@ -49,14 +49,15 @@ class App extends React.Component {
            console.log('this.state.response', this.state.response)
 
         //if the word isnt an english word
+        let related
         if (response.data.result === undefined) {
           let related = response.data.related.map((x) => (
             <button type="button" className="btn btn-light">
               {x.term}
             </button>
           ))
-          let didYouMean = <div>did you mean{related} </div>
-          this.setState({ related: didYouMean })
+         
+          this.setState({ related: response.data.related })
 
           // this.setState({ related: response.data.related[0].term })
           return
@@ -152,8 +153,9 @@ class App extends React.Component {
         {/* <h2>
           <Badge bg="secondary">{this.state.related.join(',')}</Badge>
         </h2> */}
-        <h3 bg="secondary">{this.state.related}</h3>
-         <Related related={this.state.related} />
+        <h3 bg="secondary">{related}</h3>
+        {/* <h3 bg="secondary">{this.state.related}</h3> */}
+         {/* <Related related={this.state.related} /> */}
         <h2>
           <Badge bg="secondary">{this.state.mainWord}</Badge>
         </h2>
