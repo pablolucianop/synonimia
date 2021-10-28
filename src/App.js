@@ -17,6 +17,28 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { Yard } from './Yard'
 import { data } from './data'
 
+class Related extends React.Component {
+  render() {
+
+              let related33 =this.props.related.map((x) => (
+            <button type="button" className="btn btn-light">
+              {x}
+            </button>
+          ))
+    return (
+      <div className="p-2">
+               {related33}
+        <button type="button" className="btn btn-light">
+          {/* {this.props.related.join(', ')} */}
+   
+          <span className="badge text-muted">🡇</span>
+        </button>
+      </div>
+    )
+  }
+}
+
+
 class App extends React.Component {
   constructor(props) {
     super(props)
@@ -24,6 +46,7 @@ class App extends React.Component {
       allSyns: '',
       value: '',
       related: '',
+      related2: [],
       mainWord: ''
     }
     this.setMainWord = this.setMainWord.bind(this)
@@ -56,9 +79,13 @@ class App extends React.Component {
               {x.term}
             </button>
           ))
+          let justRelated = response.data.related.map((x) => (
+              x.term
+          ))
           let didYouMean = <div>did you mean{related} </div>
           this.setState({ related: didYouMean })
-
+            this.setState({ related2: justRelated })
+            console.log('this.state.related2', this.state.related2)
           // this.setState({ related: response.data.related[0].term })
           return
         }
@@ -176,6 +203,7 @@ class App extends React.Component {
           </button>
         </div>
         <Yard todos={this.state.allSyns.todos} />
+         <Related related={this.state.related2} />
       </div>
     )
   }
