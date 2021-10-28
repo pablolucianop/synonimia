@@ -1,4 +1,6 @@
 import React from 'react'
+import { WordButton } from './WordButton'
+
 export class Yard extends React.Component {
   render() {
     // console.log('this.props.todos', this.props.todos)
@@ -8,7 +10,7 @@ export class Yard extends React.Component {
       //   console.log('uniques', uniques)
 
       navLinks = uniques.map((synCard, index) => {
-        return <Prue synCard={synCard} key={synCard + index} />
+        return <WordButton synCard={synCard} key={synCard + index} />
       })
     }
 
@@ -16,15 +18,3 @@ export class Yard extends React.Component {
   }
 }
 
-class Prue extends React.Component {
-  render() {
-    return (
-      <div className="p-2">
-        <button type="button" className="btn btn-light">
-             {this.props.synCard}
-          <span className="badge text-muted">🡇</span>
-        </button>
-      </div>
-    )
-  }
-}
