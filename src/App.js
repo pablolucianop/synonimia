@@ -52,9 +52,13 @@ class App extends React.Component {
     this.setMainWord = this.setMainWord.bind(this)
     this.handleChangeInput = this.handleChangeInput.bind(this)
     this.handleSubmitSearch = this.handleSubmitSearch.bind(this)
+    this.handlePick = this.handlePick.bind(this)
   }
   handleChangeInput(event) {
     this.setState({ value: event.target.value })
+  }
+    handlePick() {
+    this.setState({ picked:[' event.target.value', 'eeee'] })
   }
 
   handleSubmitSearch(event) {
@@ -177,7 +181,7 @@ class App extends React.Component {
           <Badge bg="secondary">{this.state.mainWord}</Badge>
         </h2>
         <Closer todos={this.state.picked} />
-        <Yard todos={this.state.allSyns.todos} />
+        <Yard todos={this.state.allSyns.todos} handlePick={this.handlePick}/>
 
          
       </div>
