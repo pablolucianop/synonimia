@@ -1,7 +1,7 @@
 import React from 'react'
 import { WordButton } from './WordButton'
 
-export class Yard extends React.Component {
+export class Yard   extends React.Component  {
   componentDidMount() {
   // this.props.handlePick()
 }
@@ -17,7 +17,7 @@ export class Yard extends React.Component {
         return <WordButton synCard={synCard} key={synCard + index} handlePick ={ this.props.handlePick}  />
       })
     }
-
+    this.props.func('My name is Dean Winchester & this is my brother Sammie');
     return <div className="d-flex flex-row flex-wrap">{navLinks} </div>
   }
 }

@@ -63,6 +63,7 @@ class App extends React.Component {
     console.log('eee',eee)
   }
 
+
   handleSubmitSearch(event) {
     // alert('A name was submitted: ' + this.state.value);
     this.setState({ mainWord: this.state.value })
@@ -141,6 +142,7 @@ class App extends React.Component {
     event.preventDefault()
   }
 
+  
 
   setMainWord(event) {
     console.log('vevent.target', event.target)
@@ -148,7 +150,12 @@ class App extends React.Component {
     this.setState({ mainWord: event.target.value })
   }
 
+
   render() {
+
+  const pull_data = (data) => {
+    console.log(data); // LOGS DATA FROM CHILD (My name is Dean Winchester... &)
+  }
     return (
       <div>
         <h1>SINONIMS</h1>
@@ -183,7 +190,7 @@ class App extends React.Component {
           <Badge bg="secondary">{this.state.mainWord}</Badge>
         </h2>
         <Closer todos={this.state.picked} />
-        <Yard todos={this.state.allSyns.todos} handlePick={this.handlePick}/>
+        <Yard todos={this.state.allSyns.todos} handlePick={this.handlePick} func={pull_data}/>
 
          
       </div>
