@@ -22,6 +22,18 @@ export class Yard   extends React.Component  {
     // });
   }
 
+    unPick(evt) {
+
+    // pass the input field value to the event handler passed
+    // as a prop by the parent (App)
+    this.props.handleUnPick(evt);
+    console.log('evto',evt)
+    
+    // this.setState({
+    //   inputField: ''
+    // });
+  }
+
   componentDidMount() {
   // this.props.handlePick()
 }
@@ -36,12 +48,11 @@ export class Yard   extends React.Component  {
 
 
       navLinks = uniques.map((synCard, index) => {
-        return <WordButton synCard={synCard} key={synCard + index} www={this.submitHandler}  />
+        return <WordButton synCard={synCard} key={synCard + index} www={this.submitHandler}  uuu={this.submitHandler}  />
       })
     }
  
     return (<div className="d-flex flex-row flex-wrap">{navLinks} 
-    <button onClick={this.submitHandler}> www</button>
     </div>)
   }
 }
