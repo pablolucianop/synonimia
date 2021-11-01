@@ -58,7 +58,7 @@ class App extends React.Component {
     this.setState({ value: event.target.value })
   }
     handlePick(eee) {
-    this.setState({ picked:[' event.target.value', 'eeee'] })
+    this.setState({ picked:eee })
     console.log('this.state.picked', this.state.picked)
     console.log('eee',eee)
   }
@@ -190,7 +190,7 @@ class App extends React.Component {
           <Badge bg="secondary">{this.state.mainWord}</Badge>
         </h2>
         <Closer todos={this.state.picked} />
-        <Yard todos={this.state.allSyns.todos} handlePick={this.handlePick} func={pull_data}/>
+        <Yard todos={this.state.allSyns.todos} handlePick={this.handlePick} func={pull_data} onHeaderClick={this.handleSort}/>
 
          
       </div>
