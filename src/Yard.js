@@ -11,10 +11,11 @@ export class Yard   extends React.Component  {
   }
   
     submitHandler(evt) {
-    evt.preventDefault();
+
     // pass the input field value to the event handler passed
     // as a prop by the parent (App)
-    this.props.handlePick(['this.state.inputField','l']);
+    this.props.handlePick(evt);
+    console.log('evto',evt)
     
     // this.setState({
     //   inputField: ''
