@@ -46,7 +46,7 @@ class App extends React.Component {
       related: '',
       related2: [],
       mainWord: '',
-         picked: ['a', 'b', 'c'],
+         picked: [],
 
     }
     this.setMainWord = this.setMainWord.bind(this)
@@ -58,7 +58,8 @@ class App extends React.Component {
     this.setState({ value: event.target.value })
   }
     handlePick(eee) {
-    this.setState({ picked:eee })
+      this.setState({ picked: [...this.state.picked, eee] })
+    // this.setState({ picked:eee })
     console.log('this.state.picked', this.state.picked)
     console.log('eee',eee)
   }

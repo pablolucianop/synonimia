@@ -13,6 +13,7 @@ export class WordButton extends React.Component {
     //this.props.www
     // pass the input field value to the event handler passed
     // as a prop by the parent (App)
+    
     this.props.www(['qq',this.props.synCard])
     
     // this.setState({
