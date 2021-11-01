@@ -5,6 +5,7 @@ export class Yard   extends React.Component  {
   constructor() {
     super();
     this.submitHandler = this.submitHandler.bind(this);
+        this.submitHandler2 = this.submitHandler2.bind(this);
     this.state = {
       inputField: ''
     };
@@ -15,6 +16,17 @@ export class Yard   extends React.Component  {
     // pass the input field value to the event handler passed
     // as a prop by the parent (App)
     this.props.handlePick(evt);
+    console.log('evto',evt)
+    
+    // this.setState({
+    //   inputField: ''
+    // });
+  }
+      submitHandler2(evt) {
+
+    // pass the input field value to the event handler passed
+    // as a prop by the parent (App)
+    this.props.handleUnPick(evt);
     console.log('evto',evt)
     
     // this.setState({
@@ -36,7 +48,7 @@ export class Yard   extends React.Component  {
 
 
       navLinks = uniques.map((synCard, index) => {
-        return <WordButton synCard={synCard} key={synCard + index} www={this.submitHandler}  />
+        return <WordButton synCard={synCard} key={synCard + index} www={this.submitHandler} eee={this.submitHandler2} />
       })
     }
  

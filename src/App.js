@@ -53,6 +53,7 @@ class App extends React.Component {
     this.handleChangeInput = this.handleChangeInput.bind(this)
     this.handleSubmitSearch = this.handleSubmitSearch.bind(this)
     this.handlePick = this.handlePick.bind(this)
+        this.handleUnPick = this.handleUnPick.bind(this)
   }
   handleChangeInput(event) {
     this.setState({ value: event.target.value })
@@ -63,6 +64,10 @@ class App extends React.Component {
     console.log('this.state.picked', this.state.picked)
     console.log('eee',eee)
   }
+    handleUnPick(eee) {
+      this.setState({ picked: this.state.picked.filter((x) => x !== eee) })
+  }
+
 
 
   handleSubmitSearch(event) {
@@ -190,8 +195,8 @@ class App extends React.Component {
         <h2>
           <Badge bg="secondary">{this.state.mainWord}</Badge>
         </h2>
-        <Closer todos={this.state.picked} />
-        <Yard todos={this.state.allSyns.todos} handlePick={this.handlePick} func={pull_data} onHeaderClick={this.handleSort}/>
+        <Closer todos={this.state.picked} handleUnPick={this.handleUnPick} />
+        <Yard todos={this.state.allSyns.todos} handlePick={this.handlePick} handleUnPick={this.handleUnPick} func={pull_data} onHeaderClick={this.handleSort}/>
 
          
       </div>
