@@ -108,7 +108,8 @@ class App extends React.Component {
           return
         }
     let mainWord = 'consistent'
-    let responsen = response.data.result
+    let responsen 
+    Array.isArray(response.data.result) ? responsen = response.data.result : responsen = [response.data.result]
     let synsMapp = responsen.map(
       (x) => (x = { term: x.term.split(','), syn: x.synonyms.split(',') })
     )
@@ -182,6 +183,7 @@ class App extends React.Component {
         }
     let mainWord = 'consistent'
     let responsen = response.data.result
+   console.log('responsen', responsen)
     let synsMapp = responsen.map(
       (x) => (x = { term: x.term.split(','), syn: x.synonyms.split(',') })
     )
@@ -208,7 +210,7 @@ class App extends React.Component {
     this.setState({ allSyns: simpsObs })
       })
       .catch((error) => {
-        console.log(error)
+        console.log('error', error)
         alert('error', error)
       })
 
