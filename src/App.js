@@ -47,6 +47,7 @@ class App extends React.Component {
       related2: [],
       mainWord: '',
       picked: [],
+      uniques: [],
 
     }
     this.setMainWord = this.setMainWord.bind(this)
@@ -114,6 +115,9 @@ class App extends React.Component {
       })
     })
 
+    let uniques = [...new Set(simples.map((synCard) => synCard.sin))]
+    console.log('uniques', uniques)
+     this.setState({ uniques:uniques })
 
 
     let simpsObs = { todos: simples }
@@ -171,7 +175,7 @@ class App extends React.Component {
           <Badge bg="secondary">{this.state.mainWord}</Badge>
         </h2>
         <Closer todos={this.state.picked} handleUnPick={this.handleUnPick} />
-        <Yard todos={this.state.allSyns.todos} handlePick={this.handlePick} handleUnPick={this.handleUnPick} func={pull_data} onHeaderClick={this.handleSort}/>
+        <Yard uniques={this.state.uniques} todos={this.state.allSyns.todos} handlePick={this.handlePick} handleUnPick={this.handleUnPick} func={pull_data} onHeaderClick={this.handleSort}/>
       </div>
     )
   }
