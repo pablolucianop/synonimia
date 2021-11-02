@@ -53,6 +53,7 @@ class App extends React.Component {
     this.setMainWord = this.setMainWord.bind(this)
     this.handleChangeInput = this.handleChangeInput.bind(this)
     this.handleSubmitSearch = this.handleSubmitSearch.bind(this)
+    this.handleSubmitSearchRelated = this.handleSubmitSearchRelated.bind(this)
     this.handlePick = this.handlePick.bind(this)
     this.handleUnPick = this.handleUnPick.bind(this)
   }
@@ -69,8 +70,6 @@ class App extends React.Component {
   handleSubmitSearch(event) {
     this.setState({ mainWord: this.state.value })
     let word = this.state.value
- 
-
     axios
       .get(
         `https://www.abbreviations.com/services/v2/syno.php?uid=9413&tokenid=vIMVCwch6JUkn04H&word=${word}&format=json`
@@ -120,7 +119,7 @@ class App extends React.Component {
         })
       })
     })
-//make an array of all the synonyms and filter duplicates
+  //make an array of all the synonyms and filter duplicates
     let uniques = [...new Set(simples.map((synCard) => synCard.sin))]
     console.log('uniques', uniques)
     //pass all uniques to state
