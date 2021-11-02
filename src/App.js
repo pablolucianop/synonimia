@@ -53,7 +53,6 @@ class App extends React.Component {
     this.setMainWord = this.setMainWord.bind(this)
     this.handleChangeInput = this.handleChangeInput.bind(this)
     this.handleSubmitSearch = this.handleSubmitSearch.bind(this)
-    this.getSyms = this.getSyms.bind(this)
     this.handlePick = this.handlePick.bind(this)
     this.handleUnPick = this.handleUnPick.bind(this)
   }
@@ -62,11 +61,6 @@ class App extends React.Component {
   }
     handlePick(selectedWord) {
       this.setState({ picked: [...this.state.picked, selectedWord] })
-      // console.log('uniques',  this.state.uniques)
-      // console.log('selectedWord',  selectedWord)
-      // this.setState({ uniques: this.state.uniques.filter((x) => x !== selectedWord) })
-      //       console.log('uniques',  this.state.uniques)
-          //  this.setState({ uniques: ['a',]})
   }
     handleUnPick(selectedWord) {
       this.setState({ picked: this.state.picked.filter((x) => x !== selectedWord) })
@@ -76,9 +70,6 @@ class App extends React.Component {
     this.setState({ mainWord: this.state.value })
     let word = this.state.value
  
-  // function getSyms(){
-
-  
 
     axios
       .get(
@@ -89,7 +80,7 @@ class App extends React.Component {
            this.setState({ response: response.data.result })
            console.log('this.state.response', this.state.response)
 
-        //if the word isnt an english word
+        //if the word isnt an english word, show related words
         if (response.data.result === undefined) {
           console.log('exito')
           console.log(response.data.related)
@@ -107,9 +98,12 @@ class App extends React.Component {
             console.log('this.state.related2', this.state.related2)
           return
         }
-    let mainWord = 'consistent'
+        //if the word is an english word
+    let mainWord 
     let responsen 
+    //is the response is a single object, turn it into an array
     Array.isArray(response.data.result) ? responsen = response.data.result : responsen = [response.data.result]
+    //turn the response in array of {sin: [], term: '', main:''}, in simples
     let synsMapp = responsen.map(
       (x) => (x = { term: x.term.split(','), syn: x.synonyms.split(',') })
     )
@@ -126,12 +120,13 @@ class App extends React.Component {
         })
       })
     })
-
+//make an array of all the synonyms and filter duplicates
     let uniques = [...new Set(simples.map((synCard) => synCard.sin))]
     console.log('uniques', uniques)
+    //pass all uniques to state
      this.setState({ uniques:uniques })
 
-
+    //pass  array of {sin: [], term: '', main:''} to state
     let simpsObs = { todos: simples }
     this.setState({ allSyns: simpsObs })
       })
@@ -141,83 +136,8 @@ class App extends React.Component {
       })
 
     event.preventDefault()
-    // }
-      //  getSyms()
   }
 
-
-     getSyms(event) {
-    this.setState({ mainWord: this.state.value })
-    let word = this.state.value
- 
-  // function getSyms(){
-
-  
-
-    axios
-      .get(
-        `https://www.abbreviations.com/services/v2/syno.php?uid=9413&tokenid=vIMVCwch6JUkn04H&word=${word}&format=json`
-      )
-      .then((response) => {
-        console.log('response.data.result', response.data)
-           this.setState({ response: response.data.result })
-           console.log('this.state.response', this.state.response)
-
-        //if the word isnt an english word
-        if (response.data.result === undefined) {
-          console.log('exito')
-          console.log(response.data.related)
-          let related = response.data.related.map((x) => (
-            <button type="button" className="btn btn-light">
-              {x.term}
-            </button>
-          ))
-          let justRelated = response.data.related.map((x) => (
-              x.term
-          ))
-          let didYouMean = <div>did you mean{related} </div>
-          this.setState({ related: didYouMean })
-            this.setState({ related2: justRelated })
-            console.log('this.state.related2', this.state.related2)
-          return
-        }
-    let mainWord = 'consistent'
-    let responsen = response.data.result
-   console.log('responsen', responsen)
-    let synsMapp = responsen.map(
-      (x) => (x = { term: x.term.split(','), syn: x.synonyms.split(',') })
-    )
-      
-    let simples = []
-    synsMapp.forEach((element) => {
-      element.syn.forEach((element0) => {
-        simples.push({
-          sin: element0,
-          term: element.term.filter(
-            (word) => word === word // !== mainWord
-          ),
-          main: mainWord,
-        })
-      })
-    })
-
-    let uniques = [...new Set(simples.map((synCard) => synCard.sin))]
-    console.log('uniques', uniques)
-     this.setState({ uniques:uniques })
-
-
-    let simpsObs = { todos: simples }
-    this.setState({ allSyns: simpsObs })
-      })
-      .catch((error) => {
-        console.log('error', error)
-        alert('error', error)
-      })
-
-    event.preventDefault()
-    // }
-      //  getSyms()
-  }
 
   setMainWord(event) {
     this.setState({ mainWord: event.target.value })
