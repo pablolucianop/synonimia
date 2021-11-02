@@ -1,4 +1,6 @@
 import React from 'react'
+import Badge from 'react-bootstrap/Badge'
+import Card from 'react-bootstrap/Card'
 
 export class WordButton extends React.Component {
   constructor() {
@@ -22,11 +24,10 @@ export class WordButton extends React.Component {
   render() {
     return (
       <div className="p-2">
-        <button type="button" className="btn btn-light" onClick={this.submitHandler2} >
-             {this.props.synCard}
-          <span className="badge text-muted" >🡇</span>
-        </button>
-         {(this.props.eee !== undefined) ? <button onClick={this.submitHandler22}>🡇</button> : ''}
+        <Card type="button" className="btn btn-light"  >
+          <h5 onClick={this.submitHandler2}>{this.props.synCard}</h5>
+         {(this.props.eee !== undefined) ? <span className="badge text-muted" onClick={this.submitHandler22}>🡇</span> : ''}
+                 </Card>
       </div>
     )
   }

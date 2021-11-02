@@ -60,7 +60,6 @@ class App extends React.Component {
   }
     handlePick(selectedWord) {
       this.setState({ picked: [...this.state.picked, selectedWord] })
-console.log('this.state.picked', this.state.allSyns)
   }
     handleUnPick(selectedWord) {
       this.setState({ picked: this.state.picked.filter((x) => x !== selectedWord) })
@@ -114,6 +113,8 @@ console.log('this.state.picked', this.state.allSyns)
         })
       })
     })
+
+
 
     let simpsObs = { todos: simples }
     this.setState({ allSyns: simpsObs })
