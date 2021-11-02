@@ -12,7 +12,7 @@ export class WordButton extends React.Component {
   }
   submitHandler2(evt) {
     evt.preventDefault();
-    this.props.www([this.props.synCard])
+    this.props.submitHandler([this.props.synCard])
   }
   submitHandler22(evt) {
     evt.preventDefault();

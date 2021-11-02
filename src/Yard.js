@@ -29,7 +29,7 @@ export class Yard   extends React.Component  {
     if (this.props.todos !== undefined) {
       let uniques = [...new Set(this.props.todos.map((synCard) => synCard.sin))]
       navLinks = uniques.map((synCard, index) => {
-        return <WordButton synCard={synCard} key={synCard + index} www={this.submitHandler} />
+        return <WordButton synCard={synCard} key={synCard + index} submitHandler={this.submitHandler} />
       })
     }
  

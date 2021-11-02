@@ -58,12 +58,12 @@ class App extends React.Component {
   handleChangeInput(event) {
     this.setState({ value: event.target.value })
   }
-    handlePick(eee) {
-      this.setState({ picked: [...this.state.picked, eee] })
+    handlePick(selectedWord) {
+      this.setState({ picked: [...this.state.picked, selectedWord] })
 console.log('this.state.picked', this.state.allSyns)
   }
-    handleUnPick(eee) {
-      this.setState({ picked: this.state.picked.filter((x) => x !== eee) })
+    handleUnPick(selectedWord) {
+      this.setState({ picked: this.state.picked.filter((x) => x !== selectedWord) })
   }
 
   handleSubmitSearch(event) {
