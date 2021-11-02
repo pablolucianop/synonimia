@@ -46,32 +46,27 @@ class App extends React.Component {
       related: '',
       related2: [],
       mainWord: '',
-         picked: [],
+      picked: [],
 
     }
     this.setMainWord = this.setMainWord.bind(this)
     this.handleChangeInput = this.handleChangeInput.bind(this)
     this.handleSubmitSearch = this.handleSubmitSearch.bind(this)
     this.handlePick = this.handlePick.bind(this)
-        this.handleUnPick = this.handleUnPick.bind(this)
+    this.handleUnPick = this.handleUnPick.bind(this)
   }
   handleChangeInput(event) {
     this.setState({ value: event.target.value })
   }
     handlePick(eee) {
       this.setState({ picked: [...this.state.picked, eee] })
-    // this.setState({ picked:eee })
-    console.log('this.state.picked', this.state.picked)
-    console.log('eee',eee)
+console.log('this.state.allSyns', this.state.allSyns)
   }
     handleUnPick(eee) {
       this.setState({ picked: this.state.picked.filter((x) => x !== eee) })
   }
 
-
-
   handleSubmitSearch(event) {
-    // alert('A name was submitted: ' + this.state.value);
     this.setState({ mainWord: this.state.value })
     let word = this.state.value
     axios
@@ -99,30 +94,13 @@ class App extends React.Component {
           this.setState({ related: didYouMean })
             this.setState({ related2: justRelated })
             console.log('this.state.related2', this.state.related2)
-          // this.setState({ related: response.data.related[0].term })
           return
         }
-
-        console.log('data',data)
-        console.log('response.data.result', response.data.result)
-             // if (response.data.result[0].definition === undefined){
-        //   alert(response.data.result.related)
-        // }
-        // let syns = response.data.result.map((x) => (x = x.term))
-
-        // this.setState({ allSyns: syns })
-    console.log('this.state', this.state)
     let mainWord = 'consistent'
     let responsen = response.data.result
-
-
-
-    // let synsMapp = responsen.map((x) => [x.synonyms])
     let synsMapp = responsen.map(
       (x) => (x = { term: x.term.split(','), syn: x.synonyms.split(',') })
     )
-
-    console.log('synsMapp', synsMapp)
       
     let simples = []
     synsMapp.forEach((element) => {
@@ -151,21 +129,17 @@ class App extends React.Component {
   
 
   setMainWord(event) {
-    console.log('vevent.target', event.target)
-
     this.setState({ mainWord: event.target.value })
   }
 
 
   render() {
-
   const pull_data = (data) => {
-    console.log(data); // LOGS DATA FROM CHILD (My name is Dean Winchester... &)
+    console.log(data); 
   }
     return (
       <div>
         <h1>SINONIMS</h1>
-
         <Navbar bg="light" expand="lg">
           <Container fluid>
             <Navbar.Brand href="#">search synonims</Navbar.Brand>
@@ -197,8 +171,6 @@ class App extends React.Component {
         </h2>
         <Closer todos={this.state.picked} handleUnPick={this.handleUnPick} />
         <Yard todos={this.state.allSyns.todos} handlePick={this.handlePick} handleUnPick={this.handleUnPick} func={pull_data} onHeaderClick={this.handleSort}/>
-
-         
       </div>
     )
   }
