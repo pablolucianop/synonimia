@@ -60,7 +60,7 @@ class App extends React.Component {
   }
     handlePick(eee) {
       this.setState({ picked: [...this.state.picked, eee] })
-console.log('this.state.allSyns', this.state.allSyns)
+console.log('this.state.picked', this.state.allSyns)
   }
     handleUnPick(eee) {
       this.setState({ picked: this.state.picked.filter((x) => x !== eee) })

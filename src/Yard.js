@@ -34,7 +34,6 @@ export class Yard   extends React.Component  {
     }
  
     return (<div className="d-flex flex-row flex-wrap">{navLinks} 
-    <button onClick={this.submitHandler}> www</button>
     </div>)
   }
 }
