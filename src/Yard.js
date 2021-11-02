@@ -48,7 +48,7 @@ export class Yard   extends React.Component  {
 
 
       navLinks = uniques.map((synCard, index) => {
-        return <WordButton synCard={synCard} key={synCard + index} www={this.submitHandler} eee={this.submitHandler2} />
+        return <WordButton synCard={synCard} key={synCard + index} www={this.submitHandler} />
       })
     }
  

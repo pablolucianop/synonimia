@@ -42,10 +42,11 @@ console.log('this.props.synCard', this.props.synCard)
       <div className="p-2">
         <button type="button" className="btn btn-light" onClick={this.submitHandler2} >
              {this.props.synCard}
-          <span className="badge text-muted">🡇</span>
+          <span className="badge text-muted" >🡇</span>
           
         </button>
-        <button onClick={this.submitHandler22}>des</button>
+        
+         {(this.props.eee !== undefined) ? <button onClick={this.submitHandler22}>🡇</button> : ''}
       </div>
     )
   }
