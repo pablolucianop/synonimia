@@ -26,11 +26,11 @@ export class Yard   extends React.Component  {
   }
   render() {
         let navLinks
-    if (this.props.todos !== undefined) {
+    // if (this.props.todos !== undefined) {
          navLinks = this.props.uniques.map((synCard, index) => {
         return <WordButton synCard={synCard} key={synCard + index} submitHandler={this.submitHandler} />
       })
-    }
+    // }
  
     return (<div className="d-flex flex-row flex-wrap">{navLinks} 
     </div>)

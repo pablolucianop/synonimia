@@ -53,6 +53,7 @@ class App extends React.Component {
     this.setMainWord = this.setMainWord.bind(this)
     this.handleChangeInput = this.handleChangeInput.bind(this)
     this.handleSubmitSearch = this.handleSubmitSearch.bind(this)
+    this.getSyms = this.getSyms.bind(this)
     this.handlePick = this.handlePick.bind(this)
     this.handleUnPick = this.handleUnPick.bind(this)
   }
@@ -61,6 +62,11 @@ class App extends React.Component {
   }
     handlePick(selectedWord) {
       this.setState({ picked: [...this.state.picked, selectedWord] })
+      // console.log('uniques',  this.state.uniques)
+      // console.log('selectedWord',  selectedWord)
+      // this.setState({ uniques: this.state.uniques.filter((x) => x !== selectedWord) })
+      //       console.log('uniques',  this.state.uniques)
+          //  this.setState({ uniques: ['a',]})
   }
     handleUnPick(selectedWord) {
       this.setState({ picked: this.state.picked.filter((x) => x !== selectedWord) })
@@ -69,6 +75,11 @@ class App extends React.Component {
   handleSubmitSearch(event) {
     this.setState({ mainWord: this.state.value })
     let word = this.state.value
+ 
+  // function getSyms(){
+
+  
+
     axios
       .get(
         `https://www.abbreviations.com/services/v2/syno.php?uid=9413&tokenid=vIMVCwch6JUkn04H&word=${word}&format=json`
@@ -129,9 +140,82 @@ class App extends React.Component {
       })
 
     event.preventDefault()
+    // }
+      //  getSyms()
   }
 
+
+     getSyms(event) {
+    this.setState({ mainWord: this.state.value })
+    let word = this.state.value
+ 
+  // function getSyms(){
+
   
+
+    axios
+      .get(
+        `https://www.abbreviations.com/services/v2/syno.php?uid=9413&tokenid=vIMVCwch6JUkn04H&word=${word}&format=json`
+      )
+      .then((response) => {
+        console.log('response.data.result', response.data)
+           this.setState({ response: response.data.result })
+           console.log('this.state.response', this.state.response)
+
+        //if the word isnt an english word
+        if (response.data.result === undefined) {
+          console.log('exito')
+          console.log(response.data.related)
+          let related = response.data.related.map((x) => (
+            <button type="button" className="btn btn-light">
+              {x.term}
+            </button>
+          ))
+          let justRelated = response.data.related.map((x) => (
+              x.term
+          ))
+          let didYouMean = <div>did you mean{related} </div>
+          this.setState({ related: didYouMean })
+            this.setState({ related2: justRelated })
+            console.log('this.state.related2', this.state.related2)
+          return
+        }
+    let mainWord = 'consistent'
+    let responsen = response.data.result
+    let synsMapp = responsen.map(
+      (x) => (x = { term: x.term.split(','), syn: x.synonyms.split(',') })
+    )
+      
+    let simples = []
+    synsMapp.forEach((element) => {
+      element.syn.forEach((element0) => {
+        simples.push({
+          sin: element0,
+          term: element.term.filter(
+            (word) => word === word // !== mainWord
+          ),
+          main: mainWord,
+        })
+      })
+    })
+
+    let uniques = [...new Set(simples.map((synCard) => synCard.sin))]
+    console.log('uniques', uniques)
+     this.setState({ uniques:uniques })
+
+
+    let simpsObs = { todos: simples }
+    this.setState({ allSyns: simpsObs })
+      })
+      .catch((error) => {
+        console.log(error)
+        alert('error', error)
+      })
+
+    event.preventDefault()
+    // }
+      //  getSyms()
+  }
 
   setMainWord(event) {
     this.setState({ mainWord: event.target.value })
@@ -175,7 +259,7 @@ class App extends React.Component {
           <Badge bg="secondary">{this.state.mainWord}</Badge>
         </h2>
         <Closer todos={this.state.picked} handleUnPick={this.handleUnPick} />
-        <Yard uniques={this.state.uniques} todos={this.state.allSyns.todos} handlePick={this.handlePick} handleUnPick={this.handleUnPick} func={pull_data} onHeaderClick={this.handleSort}/>
+        <Yard uniques={this.state.uniques} handlePick={this.handlePick} handleUnPick={this.handleUnPick} func={pull_data} onHeaderClick={this.handleSort}/>
       </div>
     )
   }
