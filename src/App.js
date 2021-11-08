@@ -104,8 +104,14 @@ class App extends React.Component {
     //is the response is a single object, turn it into an array
     Array.isArray(response.data.result) ? responsen = response.data.result : responsen = [response.data.result]
     //turn the response in array of {sin: [], term: '', main:''}, in simples
+    function synsAndTerms (x){
+      let xterm = x.term.split(',').map((x) => x[0] === ' '? x.slice(1): x)
+      let xSyn = x.synonyms.split(',').map((x) => x[0] === ' '? x.slice(1): x)
+        x = { term: xterm, syn: xSyn }
+        return x
+    }
     let synsMapp = responsen.map(
-      (x) => (x = { term: x.term.split(','), syn: x.synonyms.split(',') })
+     synsAndTerms
     )
       
     let simples = []
