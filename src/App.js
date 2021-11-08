@@ -61,13 +61,18 @@ class App extends React.Component {
   }
     handlePick(selectedWord) {
       this.setState({ picked: [...this.state.picked, selectedWord] })
+      this.setState({ value: selectedWord },()=>{
+        this.handleSubmitSearch()
+      })
   }
     handleUnPick(selectedWord) {
       this.setState({ picked: this.state.picked.filter((x) => x !== selectedWord) })
+
   }
 
   handleSubmitSearch(event) {
     this.setState({ mainWord: this.state.value })
+    console.log('this.state.value', this.state.value)
     let word = this.state.value
  
 
@@ -135,7 +140,6 @@ class App extends React.Component {
         alert('error', error)
       })
 
-    event.preventDefault()
   }
 
 
