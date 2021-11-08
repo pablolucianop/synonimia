@@ -70,17 +70,12 @@ class App extends React.Component {
 
   }
 
-  handleSubmitSearch(event) {
+  async handleSubmitSearch(event) {
     this.setState({ mainWord: this.state.value })
     console.log('this.state.value', this.state.value)
     let word = this.state.value
- 
+    let response = await axios.get(`https://www.abbreviations.com/services/v2/syno.php?uid=9413&tokenid=vIMVCwch6JUkn04H&word=${word}&format=json`)
 
-    axios
-      .get(
-        `https://www.abbreviations.com/services/v2/syno.php?uid=9413&tokenid=vIMVCwch6JUkn04H&word=${word}&format=json`
-      )
-      .then((response) => {
         console.log('response.data.result', response.data)
            this.setState({ response: response.data.result })
            console.log('this.state.response', this.state.response)
@@ -134,11 +129,9 @@ class App extends React.Component {
     //pass  array of {sin: [], term: '', main:''} to state
     let simpsObs = { todos: simples }
     this.setState({ allSyns: simpsObs })
-      })
-      .catch((error) => {
-        console.log(error)
-        alert('error', error)
-      })
+
+        // console.log(error)
+
 
   }
 
