@@ -19,18 +19,6 @@ export class Yard   extends React.Component  {
     this.props.handleUnPick(evt);
   }
 
-    unPick(evt) {
-
-    // pass the input field value to the event handler passed
-    // as a prop by the parent (App)
-    this.props.handleUnPick(evt);
-    console.log('evto',evt)
-    
-    // this.setState({
-    //   inputField: ''
-    // });
-  }
-
   componentDidMount() {
 }
   handleClick = () => {
@@ -38,13 +26,9 @@ export class Yard   extends React.Component  {
   }
   render() {
         let navLinks
-    if (this.props.todos !== undefined) {
-      let uniques = [...new Set(this.props.todos.map((synCard) => synCard.sin))]
-      //   console.log('uniques', uniques)
-
-
-      navLinks = uniques.map((synCard, index) => {
-        return <WordButton synCard={synCard} key={synCard + index} www={this.submitHandler}  uuu={this.submitHandler}  />
+    // if (this.props.todos !== undefined) {
+         navLinks = this.props.uniques.map((synCard, index) => {
+        return <WordButton synCard={synCard} key={synCard + index} submitHandler={this.submitHandler} />
       })
     // }
  
@@ -52,4 +36,4 @@ export class Yard   extends React.Component  {
     </div>)
   }
 }
-}
+
