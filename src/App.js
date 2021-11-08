@@ -107,6 +107,12 @@ class App extends React.Component {
     function synsAndTerms (x){
       let xterm = x.term.split(',').map((x) => x[0] === ' '? x.slice(1): x)
       let xSyn = x.synonyms.split(',').map((x) => x[0] === ' '? x.slice(1): x)
+       if(x.synonyms.indexOf(',') !== -1){
+         xSyn = x.synonyms.split(',').map((x) => x[0] === ' '? x.slice(1): x)
+       }else{
+         xSyn = x.synonyms
+       }
+
         x = { term: xterm, syn: xSyn }
         return x
     }
