@@ -61,6 +61,9 @@ class App extends React.Component {
   }
     handlePick(selectedWord) {
       this.setState({ picked: [...this.state.picked, selectedWord] })
+      this.setState({ value: selectedWord }, () => { 
+        this.handleSubmitSearch()
+        })
   }
     handleUnPick(selectedWord) {
       this.setState({ picked: this.state.picked.filter((x) => x !== selectedWord) })
@@ -135,7 +138,7 @@ class App extends React.Component {
         alert('error', error)
       })
 
-    event.preventDefault()
+    // event.preventDefault()
   }
 
 
