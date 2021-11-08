@@ -21,8 +21,14 @@ import { useSpring, animated } from 'react-spring'
 
 
 function Appo() {
-  const props = useSpring({ to: { opacity: 1 }, from: { opacity: 0 } })
-  return <animated.div style={props}>        <h1>SINONIMS</h1></animated.div>
+  const props = useSpring({ 
+    
+    // loop: { reverse: true },
+    from: { opacity: 0 },
+    to: { opacity: 1},
+    config: { duration: 1000 }
+  })
+  return <animated.div  className="navigation-menu" style={props}>        <h1 >SINONIMS</h1></animated.div>
 }
 
 class Related extends React.Component {
