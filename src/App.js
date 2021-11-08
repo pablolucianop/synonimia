@@ -17,6 +17,13 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { Yard } from './Yard'
 import { Closer } from './Closer'
 import { data } from './data'
+import { useSpring, animated } from 'react-spring'
+
+
+function Appo() {
+  const props = useSpring({ to: { opacity: 1 }, from: { opacity: 0 } })
+  return <animated.div style={props}>        <h1>SINONIMS</h1></animated.div>
+}
 
 class Related extends React.Component {
   render() {
@@ -48,7 +55,6 @@ class App extends React.Component {
       mainWord: '',
       picked: [],
       uniques: [],
-
     }
     this.setMainWord = this.setMainWord.bind(this)
     this.handleChangeInput = this.handleChangeInput.bind(this)
@@ -56,6 +62,7 @@ class App extends React.Component {
     this.handlePick = this.handlePick.bind(this)
     this.handleUnPick = this.handleUnPick.bind(this)
   }
+
   handleChangeInput(event) {
     this.setState({ value: event.target.value })
   }
@@ -157,9 +164,11 @@ class App extends React.Component {
   const pull_data = (data) => {
     console.log(data); 
   }
+
     return (
       <div>
-        <h1>SINONIMS</h1>
+
+        <Appo />
         <Navbar bg="light" expand="lg">
           <Container fluid>
             <Navbar.Brand href="#">search synonims</Navbar.Brand>
@@ -191,6 +200,8 @@ class App extends React.Component {
         </h2>
         <Closer todos={this.state.picked} handleUnPick={this.handleUnPick} />
         <Yard uniques={this.state.uniques} handlePick={this.handlePick} handleUnPick={this.handleUnPick} func={pull_data} onHeaderClick={this.handleSort}/>
+      <div>
+      </div>
       </div>
     )
   }
