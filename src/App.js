@@ -46,23 +46,27 @@ class App extends React.Component {
       related: '',
       related2: [],
       mainWord: '',
-         picked: [],
+      picked: [],
+      uniques: [],
 
     }
     this.setMainWord = this.setMainWord.bind(this)
     this.handleChangeInput = this.handleChangeInput.bind(this)
     this.handleSubmitSearch = this.handleSubmitSearch.bind(this)
+    this.handleSubmitSearchRelated = this.handleSubmitSearchRelated.bind(this)
     this.handlePick = this.handlePick.bind(this)
+
     this.handlePick = this.handleUnPick.bind(this)
+
   }
   handleChangeInput(event) {
     this.setState({ value: event.target.value })
   }
-    handlePick(eee) {
-      this.setState({ picked: [...this.state.picked, eee] })
-    // this.setState({ picked:eee })
-    console.log('this.state.picked', this.state.picked)
-    console.log('eee',eee)
+    handlePick(selectedWord) {
+      this.setState({ picked: [...this.state.picked, selectedWord] })
+  }
+    handleUnPick(selectedWord) {
+      this.setState({ picked: this.state.picked.filter((x) => x !== selectedWord) })
   }
     handleUnPick(eee) {
       //search for eee in this.state.picked
@@ -73,7 +77,6 @@ class App extends React.Component {
   }
 
   handleSubmitSearch(event) {
-    // alert('A name was submitted: ' + this.state.value);
     this.setState({ mainWord: this.state.value })
     let word = this.state.value
     axios
@@ -85,7 +88,7 @@ class App extends React.Component {
            this.setState({ response: response.data.result })
            console.log('this.state.response', this.state.response)
 
-        //if the word isnt an english word
+        //if the word isnt an english word, show related words
         if (response.data.result === undefined) {
           console.log('exito')
           console.log(response.data.related)
@@ -101,30 +104,17 @@ class App extends React.Component {
           this.setState({ related: didYouMean })
             this.setState({ related2: justRelated })
             console.log('this.state.related2', this.state.related2)
-          // this.setState({ related: response.data.related[0].term })
           return
         }
-
-        console.log('data',data)
-        console.log('response.data.result', response.data.result)
-             // if (response.data.result[0].definition === undefined){
-        //   alert(response.data.result.related)
-        // }
-        // let syns = response.data.result.map((x) => (x = x.term))
-
-        // this.setState({ allSyns: syns })
-    console.log('this.state', this.state)
-    let mainWord = 'consistent'
-    let responsen = response.data.result
-
-
-
-    // let synsMapp = responsen.map((x) => [x.synonyms])
+        //if the word is an english word
+    let mainWord 
+    let responsen 
+    //is the response is a single object, turn it into an array
+    Array.isArray(response.data.result) ? responsen = response.data.result : responsen = [response.data.result]
+    //turn the response in array of {sin: [], term: '', main:''}, in simples
     let synsMapp = responsen.map(
       (x) => (x = { term: x.term.split(','), syn: x.synonyms.split(',') })
     )
-
-    console.log('synsMapp', synsMapp)
       
     let simples = []
     synsMapp.forEach((element) => {
@@ -138,7 +128,13 @@ class App extends React.Component {
         })
       })
     })
+  //make an array of all the synonyms and filter duplicates
+    let uniques = [...new Set(simples.map((synCard) => synCard.sin))]
+    console.log('uniques', uniques)
+    //pass all uniques to state
+     this.setState({ uniques:uniques })
 
+    //pass  array of {sin: [], term: '', main:''} to state
     let simpsObs = { todos: simples }
     this.setState({ allSyns: simpsObs })
       })
@@ -150,24 +146,19 @@ class App extends React.Component {
     event.preventDefault()
   }
 
-  
 
   setMainWord(event) {
-    console.log('vevent.target', event.target)
-
     this.setState({ mainWord: event.target.value })
   }
 
 
   render() {
-
   const pull_data = (data) => {
-    console.log(data); // LOGS DATA FROM CHILD (My name is Dean Winchester... &)
+    console.log(data); 
   }
     return (
       <div>
         <h1>SINONIMS</h1>
-
         <Navbar bg="light" expand="lg">
           <Container fluid>
             <Navbar.Brand href="#">search synonims</Navbar.Brand>

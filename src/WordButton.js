@@ -1,4 +1,6 @@
 import React from 'react'
+import Badge from 'react-bootstrap/Badge'
+import Card from 'react-bootstrap/Card'
 
 export class WordButton extends React.Component {
   constructor() {
@@ -6,7 +8,8 @@ export class WordButton extends React.Component {
     this.submitHandler2 = this.submitHandler2.bind(this);
     this.submitHandler3 = this.submitHandler3.bind(this);
     this.state = {
-      picked2: ['aa','perroo']
+      picked2: '',
+      unPicked2: '',
     };
   }
   submitHandler2(evt) {
@@ -36,8 +39,6 @@ export class WordButton extends React.Component {
   }
 
   render() {
-console.log('this.props.www', this.props.www)
-console.log('this.props.synCard', this.props.synCard)
     return (
       <div className="p-2">
         <button type="button" className="btn btn-light" onClick={this.submitHandler2} >
