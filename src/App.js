@@ -1,6 +1,6 @@
 import logo from './logo.svg'
 import './App.css'
-import React from 'react'
+import React, { useState } from 'react';
 import Badge from 'react-bootstrap/Badge'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
@@ -31,9 +31,9 @@ function Appo() {
   return <animated.div  className="navigation-menu" style={props}>        <h1 >SINONIMS</h1></animated.div>
 }
 
-class Related extends React.Component {
-  render() {
-    let related33 =this.props.related.map((x) => (
+
+const RelatedF = (props) => {
+    let related33 =props.related.map((x) => (
       <button type="button" className="btn btn-light">
         {x}
       </button>
@@ -46,7 +46,6 @@ class Related extends React.Component {
           </div>
       </div>
     )
-  }
 }
 
 
@@ -198,7 +197,7 @@ class App extends React.Component {
         </Navbar>
 
         <h3 bg="secondary">       
-         {this.state.related2.length>0 ? <Related related={this.state.related2} /> : null}
+         {this.state.related2.length>0 ? <RelatedF related={this.state.related2} /> : null}
          </h3>
 
         <h2>
