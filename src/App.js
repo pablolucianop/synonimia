@@ -117,8 +117,13 @@ class App extends React.Component {
     Array.isArray(response.data.result) ? responsen = response.data.result : responsen = [response.data.result]
     //turn the response in array of {sin: [], term: '', main:''}, in simples
     function synsAndTerms (x){
-      let xterm = x.term.split(',').map((x) => x[0] === ' '? x.slice(1): x)
-      let xSyn = x.synonyms.split(',').map((x) => x[0] === ' '? x.slice(1): x)
+
+      let xterm  =[]
+      let xSyn=[]
+
+        xterm = x.term.split(',').map((x) => x[0] === ' '? x.slice(1): x)
+      
+        if (!(typeof x.synonyms === 'string' || x.synonyms instanceof String)){x.synonyms = ''}
        if(x.synonyms.indexOf(',') !== -1){
          xSyn = x.synonyms.split(',').map((x) => x[0] === ' '? x.slice(1): x)
        }else{
@@ -134,6 +139,7 @@ class App extends React.Component {
       
     let simples = []
     synsMapp.forEach((element) => {
+      if(!Array.isArray( element.syn)){element.syn = []}
       element.syn.forEach((element0) => {
         simples.push({
           sin: element0,
