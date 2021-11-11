@@ -87,7 +87,10 @@ class App extends React.Component {
     console.log('this.state.value', this.state.value)
     let word = this.state.value
     let response = await axios.get(`https://www.abbreviations.com/services/v2/syno.php?uid=9413&tokenid=vIMVCwch6JUkn04H&word=${word}&format=json`)
-
+if( response.data.error === 'Daily Usage Exceeded'){
+  alert('This api is tired, let it rest for today')
+  return
+}
         console.log('response.data.result', response.data)
            this.setState({ response: response.data.result })
            console.log('this.state.response', this.state.response)
