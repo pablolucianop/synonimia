@@ -19,7 +19,7 @@ export class Closer extends React.Component {
     // });
   }
   render() {
-    console.log('this.props.todos', this.props.todos)
+    // console.log('this.props.todos', this.props.todos)
     let navLinks
     if (this.props.todos !== undefined) {
       let uniques = this.props.todos

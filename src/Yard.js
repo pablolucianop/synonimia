@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react';
 import { WordButton } from './WordButton'
+
 
 export class Yard   extends React.Component  {
   constructor() {
@@ -37,3 +38,26 @@ export class Yard   extends React.Component  {
   }
 }
 
+export function Yard2 (props)  {
+
+  const [inputField, setInputField] = useState('');
+
+  const submitHandler2 = (evt) =>{
+    evt.preventDefault();
+    props.submitHandler([props.synCard])
+  }
+
+  const submitHandler22 =(evt) => {
+    evt.preventDefault();
+    props.eee(props.synCard)
+  }
+
+      let navLinks
+    // if (this.props.todos !== undefined) {
+         navLinks = this.props.uniques.map((synCard, index) => {
+        return <WordButton synCard={synCard} key={synCard + index} submitHandler={this.submitHandler} />
+      })
+
+    return (<div className="d-flex flex-row flex-wrap">{navLinks} 
+    </div>)
+}

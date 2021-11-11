@@ -1,6 +1,6 @@
 import logo from './logo.svg'
 import './App.css'
-import React from 'react'
+import React, { useState } from 'react';
 import Badge from 'react-bootstrap/Badge'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
@@ -17,10 +17,23 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { Yard } from './Yard'
 import { Closer } from './Closer'
 import { data } from './data'
+import { useSpring, animated } from 'react-spring'
 
-class Related extends React.Component {
-  render() {
-    let related33 =this.props.related.map((x) => (
+
+function Appo() {
+  const props = useSpring({ 
+    
+    // loop: { reverse: true },
+    from: { opacity: 0 },
+    to: { opacity: 1},
+    config: { duration: 1000 }
+  })
+  return <animated.div  className="navigation-menu" style={props}>        <h1 >SINONIMS</h1></animated.div>
+}
+
+
+const RelatedF = (props) => {
+    let related33 =props.related.map((x) => (
       <button type="button" className="btn btn-light">
         {x}
       </button>
@@ -33,7 +46,6 @@ class Related extends React.Component {
           </div>
       </div>
     )
-  }
 }
 
 
@@ -48,7 +60,6 @@ class App extends React.Component {
       mainWord: '',
       picked: [],
       uniques: [],
-
     }
     this.setMainWord = this.setMainWord.bind(this)
     this.handleChangeInput = this.handleChangeInput.bind(this)
@@ -56,29 +67,27 @@ class App extends React.Component {
     this.handlePick = this.handlePick.bind(this)
     this.handleUnPick = this.handleUnPick.bind(this)
   }
+
   handleChangeInput(event) {
     this.setState({ value: event.target.value })
   }
     handlePick(selectedWord) {
       this.setState({ picked: [...this.state.picked, selectedWord] })
-      this.setState({ value: selectedWord }, () => { 
+      this.setState({ value: selectedWord },()=>{
         this.handleSubmitSearch()
-        })
+      })
   }
     handleUnPick(selectedWord) {
       this.setState({ picked: this.state.picked.filter((x) => x !== selectedWord) })
+
   }
 
-  handleSubmitSearch(event) {
+  async handleSubmitSearch(event) {
     this.setState({ mainWord: this.state.value })
+    console.log('this.state.value', this.state.value)
     let word = this.state.value
- 
+    let response = await axios.get(`https://www.abbreviations.com/services/v2/syno.php?uid=9413&tokenid=vIMVCwch6JUkn04H&word=${word}&format=json`)
 
-    axios
-      .get(
-        `https://www.abbreviations.com/services/v2/syno.php?uid=9413&tokenid=vIMVCwch6JUkn04H&word=${word}&format=json`
-      )
-      .then((response) => {
         console.log('response.data.result', response.data)
            this.setState({ response: response.data.result })
            console.log('this.state.response', this.state.response)
@@ -107,16 +116,21 @@ class App extends React.Component {
     //is the response is a single object, turn it into an array
     Array.isArray(response.data.result) ? responsen = response.data.result : responsen = [response.data.result]
     //turn the response in array of {sin: [], term: '', main:''}, in simples
-    function termSynoF(x) {
-  
-     let xTerm = x.term.split(',')
-     let xSyn = x.synonyms.split(',').map((x) => x[0] === ' '? x.slice(1) : x)
+    function synsAndTerms (x){
+      let xterm = x.term.split(',').map((x) => x[0] === ' '? x.slice(1): x)
+      let xSyn = x.synonyms.split(',').map((x) => x[0] === ' '? x.slice(1): x)
+       if(x.synonyms.indexOf(',') !== -1){
+         xSyn = x.synonyms.split(',').map((x) => x[0] === ' '? x.slice(1): x)
+       }else{
+         xSyn = x.synonyms
+       }
 
-     x = { term: xTerm, syn: xSyn }
-    return x
-  }
-    
-    let synsMapp = responsen.map(    termSynoF    )
+        x = { term: xterm, syn: xSyn }
+        return x
+    }
+    let synsMapp = responsen.map(
+     synsAndTerms
+    )
       
     let simples = []
     synsMapp.forEach((element) => {
@@ -139,13 +153,10 @@ class App extends React.Component {
     //pass  array of {sin: [], term: '', main:''} to state
     let simpsObs = { todos: simples }
     this.setState({ allSyns: simpsObs })
-      })
-      .catch((error) => {
-        console.log(error)
-        alert('error', error)
-      })
 
-    // event.preventDefault()
+        // console.log(error)
+
+
   }
 
 
@@ -158,9 +169,11 @@ class App extends React.Component {
   const pull_data = (data) => {
     console.log(data); 
   }
+
     return (
       <div>
-        <h1>SINONIMS</h1>
+
+        <Appo />
         <Navbar bg="light" expand="lg">
           <Container fluid>
             <Navbar.Brand href="#">search synonims</Navbar.Brand>
@@ -184,7 +197,7 @@ class App extends React.Component {
         </Navbar>
 
         <h3 bg="secondary">       
-         {this.state.related2.length>0 ? <Related related={this.state.related2} /> : null}
+         {this.state.related2.length>0 ? <RelatedF related={this.state.related2} /> : null}
          </h3>
 
         <h2>
@@ -192,6 +205,8 @@ class App extends React.Component {
         </h2>
         <Closer todos={this.state.picked} handleUnPick={this.handleUnPick} />
         <Yard uniques={this.state.uniques} handlePick={this.handlePick} handleUnPick={this.handleUnPick} func={pull_data} onHeaderClick={this.handleSort}/>
+      <div>
+      </div>
       </div>
     )
   }
